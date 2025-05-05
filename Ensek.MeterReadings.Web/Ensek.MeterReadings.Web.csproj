@@ -1,0 +1,45 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+	<PropertyGroup>
+		<TargetFramework>net8.0</TargetFramework>
+		<Nullable>enable</Nullable>
+		<ImplicitUsings>enable</ImplicitUsings>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\Ensek.MeterReadings.Domain\Ensek.MeterReadings.Domain.csproj" />
+		<ProjectReference Include="..\Ensek.MeterReadings.Data\Ensek.MeterReadings.Data.csproj" />
+		<ProjectReference Include="..\Ensek.MeterReadings.Services\Ensek.MeterReadings.Services.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.4">
+			<PrivateAssets>all</PrivateAssets>
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		</PackageReference>
+		<PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="8.0.4" />
+		<PackageReference Include="Swashbuckle.AspNetCore" Version="6.6.2" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<Content Include="DataSeed\**">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Compile Remove="Views\Shared\**" />
+	  <Compile Remove="wwwroot\**" />
+	  <Content Remove="Views\Shared\**" />
+	  <Content Remove="wwwroot\**" />
+	  <EmbeddedResource Remove="Views\Shared\**" />
+	  <EmbeddedResource Remove="wwwroot\**" />
+	  <None Remove="Views\Shared\**" />
+	  <None Remove="wwwroot\**" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Folder Include="DataSeed\" />
+	</ItemGroup>
+
+</Project>

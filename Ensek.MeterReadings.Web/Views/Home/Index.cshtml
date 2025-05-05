@@ -1,0 +1,143 @@
+﻿@model Ensek.MeterReadings.Domain.ViewModels.UploadViewModel
+@{
+    ViewData["Title"] = "Meter Reads Upload";
+    var hasResult = Model?.UploadResult != null;
+    var result = Model?.UploadResult; // Shorthand for easier access
+}
+
+<div class="container mt-4">
+    <div class="text-center mb-4">
+        <h1 class="display-4">Upload Meter Reads</h1>
+        <p class="lead">Select a CSV file containing meter readings to upload.</p>
+    </div>
+
+    <div class="row justify-content-center">
+        <div class="col-md-10 col-lg-8">
+
+            @* Display General Errors & Validation Issues from TempData/ModelState *@
+            @* Use ViewData.ModelState.IsValid to check for errors added in the controller *@
+            @if (!ViewData.ModelState.IsValid)
+            {
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    <strong><i class="bi bi-exclamation-triangle-fill me-2"></i>Please fix the following issues:</strong>
+                    @* Use asp-validation-summary to display errors added via ModelState.AddModelError *@
+                    <div asp-validation-summary="ModelOnly" class="mt-2"></div>
+                    @* Explicitly display errors added with an empty key if needed (like general processing errors) *@
+                    @if (ViewData.ModelState[string.Empty] != null)
+                    {
+                        <ul class="mb-0 mt-2">
+                            @foreach (var error in ViewData.ModelState[string.Empty].Errors)
+                            {
+                                <li>@error.ErrorMessage</li>
+                            }
+                        </ul>
+                    }
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            }
+
+
+            <div class="card shadow-sm mb-4">
+                <div class="card-body">
+                    <h5 class="card-title mb-3">Select File</h5>
+                    @* Form posts to the "Upload" action in "Home" controller using POST method and allows file uploads *@
+                    <form method="post" enctype="multipart/form-data" asp-controller="Home" asp-action="Upload">
+                        @* Include AntiForgeryToken for security against CSRF attacks *@
+                        @Html.AntiForgeryToken()
+
+                        <div class="input-group mb-3">
+                            @* File input: name="meterReadingFile" must match the parameter name in the POST action method *@
+                            <input type="file" name="meterReadingFile" id="meterReadingFile" class="form-control" accept=".csv" required />
+                            <button type="submit" class="btn btn-primary">
+                                <i class="bi bi-cloud-upload-fill me-2"></i> Upload File
+                            </button>
+                        </div>
+                        @* Placeholder for client-side validation message specifically for the file input (if using jQuery Validate) *@
+                        @* <span class="text-danger" data-valmsg-for="meterReadingFile" data-valmsg-replace="true"></span> *@
+                    </form>
+                </div>
+            </div>
+
+            @* Display Upload Results Section - Only shown if 'result' is not null *@
+            @if (hasResult && result != null)
+            {
+                <div class="card shadow-sm">
+                    <div class="card-header bg-light">
+                        <i class="bi bi-file-earmark-check-fill me-1"></i> Upload Results (@(result.FileName ?? "Last Upload"))
+                    </div>
+                    <div class="card-body">
+                        @* Row displaying Success/Failure counts *@
+                        <div class="row mb-3 text-center">
+                            <div class="col">
+                                <div class="stat-box p-3 border rounded bg-success-subtle text-success-emphasis">
+                                    <div class="fs-4 fw-bold">@result.SuccessfulReadings</div>
+                                    <div class="small text-uppercase"><i class="bi bi-check-circle-fill me-1"></i>Successful</div>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="stat-box p-3 border rounded bg-danger-subtle text-danger-emphasis">
+                                    <div class="fs-4 fw-bold">@result.FailedReadings</div>
+                                    <div class="small text-uppercase"><i class="bi bi-x-octagon-fill me-1"></i>Failed</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        @* Display Failure Details only if there are errors *@
+                        @if (result.Errors.Any())
+                        {
+                            <h6 class="mt-4 mb-2"><i class="bi bi-exclamation-triangle-fill me-1 text-danger"></i> Failure Details:</h6>
+                            @* Scrollable container for potentially long error lists *@
+                            <div class="error-details p-3 border rounded bg-light" style="max-height: 300px; overflow-y: auto; font-size: 0.9em;">
+                                <ul class="list-unstyled mb-0">
+                                    @foreach (var error in result.Errors)
+                                    {
+                                        <li class="mb-1 pb-1 border-bottom border-dashed">
+                                            @error @* Display each error message *@
+                                        </li>
+                                    }
+                                </ul>
+                            </div>
+                        }
+                        @* Display success message if all processed were successful *@
+                        else if (result.FailedReadings == 0 && result.SuccessfulReadings > 0)
+                        {
+                            <div class="alert alert-success mt-3" role="alert">
+                                <i class="bi bi-check-all me-1"></i> All readings processed successfully!
+                            </div>
+                        }
+                        @* Display warning if file was processed but contained no valid data to add *@
+                        else if (result.FailedReadings == 0 && result.SuccessfulReadings == 0 && result.Errors.Count == 0)
+                        {
+                            <div class="alert alert-warning mt-3" role="alert">
+                                <i class="bi bi-info-circle-fill me-1"></i> The file was processed, but contained no new valid readings to add (e.g., all duplicates or empty file).
+                            </div>
+                        }
+                    </div>
+                </div>
+            }
+
+        </div>
+    </div>
+</div>
+
+@* Section for adding page-specific CSS *@
+@section Styles {
+    <link rel="stylesheet" href="[https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css](https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css)">
+    <style>
+        .stat-box { /* Basic styling for result boxes */
+            transition: transform 0.2s ease-in-out;
+        }
+        .stat-box:hover {
+             transform: translateY(-2px); /* Slight lift on hover */
+        }
+        .error-details { background-color: #f8f9fa; } /* Light background for error list */
+        .border-dashed { border-bottom-style: dashed !important; } /* Dashed separator for errors */
+    </style>
+    }
+
+@* Section for adding page-specific scripts (includes validation scripts) *@
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    }

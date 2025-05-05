@@ -1,0 +1,84 @@
+﻿/* Basic body styling */
+body {
+    margin-bottom: 60px; /* Margin bottom by footer height */
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Example font stack */
+    line-height: 1.6;
+}
+
+/* Sticky footer styles
+    -------------------------------------------------- */
+html {
+    font-size: 14px;
+}
+
+@media (min-width: 768px) {
+    html {
+        font-size: 16px;
+    }
+}
+
+.border-top {
+    border-top: 1px solid #e5e5e5;
+}
+
+.border-bottom {
+    border-bottom: 1px solid #e5e5e5;
+}
+
+.box-shadow {
+    box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
+}
+
+button.accept-policy {
+    font-size: 1rem;
+    line-height: inherit;
+}
+
+/* Sticky footer styles
+    -------------------------------------------------- */
+html {
+    position: relative;
+    min-height: 100%;
+}
+
+body {
+    /* Margin bottom by footer height */
+    margin-bottom: 60px; /* Adjust if footer height changes */
+}
+
+.footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    white-space: nowrap;
+    line-height: 60px; /* Vertically center footer text */
+    background-color: #f8f9fa; /* Light background for footer */
+}
+
+/* Customizations */
+.navbar-brand i {
+    color: #0d6efd; /* Bootstrap primary blue */
+    font-size: 1.2em; /* Slightly larger icon */
+}
+
+.nav-link.active {
+    font-weight: 600; /* Make active link bold */
+}
+
+.card-header {
+    font-weight: 500;
+}
+
+.error-details ul li:last-child {
+    border-bottom: none !important; /* Remove border from last error item */
+}
+
+/* Style for validation summary */
+.validation-summary-errors ul {
+    padding-left: 1.5rem; /* Indent error list */
+    margin-bottom: 0;
+}
+
+.validation-summary-errors li {
+    margin-bottom: 0.25rem;
+}

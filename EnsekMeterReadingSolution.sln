@@ -1,0 +1,43 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.13.35931.197 d17.13
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ensek.MeterReadings.Domain", "Ensek.MeterReadings.Domain\Ensek.MeterReadings.Domain.csproj", "{C9E987B9-94FC-4A09-A73A-3AD2B383ADDC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ensek.MeterReadings.Data", "Ensek.MeterReadings.Data\Ensek.MeterReadings.Data.csproj", "{B5115DB7-555B-4331-8105-EEA2909DFDE3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ensek.MeterReadings.Services", "Ensek.MeterReadings.Services\Ensek.MeterReadings.Services.csproj", "{62A1F10E-A7D0-46F7-B9C8-E314DDFD878A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ensek.MeterReadings.Web", "Ensek.MeterReadings.Web\Ensek.MeterReadings.Web.csproj", "{1D87E9AA-6BCF-4069-A283-B93A21763AA3}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{C9E987B9-94FC-4A09-A73A-3AD2B383ADDC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C9E987B9-94FC-4A09-A73A-3AD2B383ADDC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C9E987B9-94FC-4A09-A73A-3AD2B383ADDC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C9E987B9-94FC-4A09-A73A-3AD2B383ADDC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B5115DB7-555B-4331-8105-EEA2909DFDE3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B5115DB7-555B-4331-8105-EEA2909DFDE3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B5115DB7-555B-4331-8105-EEA2909DFDE3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B5115DB7-555B-4331-8105-EEA2909DFDE3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{62A1F10E-A7D0-46F7-B9C8-E314DDFD878A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{62A1F10E-A7D0-46F7-B9C8-E314DDFD878A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{62A1F10E-A7D0-46F7-B9C8-E314DDFD878A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{62A1F10E-A7D0-46F7-B9C8-E314DDFD878A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1D87E9AA-6BCF-4069-A283-B93A21763AA3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1D87E9AA-6BCF-4069-A283-B93A21763AA3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1D87E9AA-6BCF-4069-A283-B93A21763AA3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1D87E9AA-6BCF-4069-A283-B93A21763AA3}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {468965AF-7AA5-4716-B21D-DEDB52F6337A}
+	EndGlobalSection
+EndGlobal
