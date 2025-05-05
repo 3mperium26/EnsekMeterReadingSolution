@@ -79,9 +79,9 @@ The solution follows a clean architecture pattern with distinct projects for dif
 2.  You will see the "Upload Meter Readings" page.
 3.  Click the "Choose File" or similar button and select the `Meter_Reading.csv` file (or another CSV with the same format).
 4.  Click the "Upload File" button.
-5.  ~~The page will refresh, displaying the results below the form:~~
-    ~~* Counts for successful and failed readings.~~
-    ~~* A detailed list of errors if any readings failed validation or parsing.~~
+5.  The page will refresh, displaying the results below the form:
+    * Counts for successful and failed readings.
+    * A detailed list of errors if any readings failed validation or parsing.
 
 ### Web API Endpoint
 
