@@ -18,6 +18,7 @@
 			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 		</PackageReference>
 		<PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="8.0.4" />
+		<PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="8.0.7" />
 		<PackageReference Include="Swashbuckle.AspNetCore" Version="6.6.2" />
 	</ItemGroup>
 
@@ -28,18 +29,16 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Compile Remove="Views\Shared\**" />
-	  <Compile Remove="wwwroot\**" />
-	  <Content Remove="Views\Shared\**" />
-	  <Content Remove="wwwroot\**" />
-	  <EmbeddedResource Remove="Views\Shared\**" />
-	  <EmbeddedResource Remove="wwwroot\**" />
-	  <None Remove="Views\Shared\**" />
-	  <None Remove="wwwroot\**" />
+	  <Folder Include="DataSeed\" />
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Folder Include="DataSeed\" />
+	  <Content Update="wwwroot\css\site.css">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </Content>
+	  <Content Update="wwwroot\js\site.js">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </Content>
 	</ItemGroup>
 
 </Project>
