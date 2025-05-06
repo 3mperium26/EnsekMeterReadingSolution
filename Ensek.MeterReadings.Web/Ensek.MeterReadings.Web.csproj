@@ -6,6 +6,14 @@
 		<ImplicitUsings>enable</ImplicitUsings>
 	</PropertyGroup>
 
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+	  <NoWarn>1701;1702;8602</NoWarn>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+	  <NoWarn>1701;1702;8602</NoWarn>
+	</PropertyGroup>
+
 	<ItemGroup>
 		<ProjectReference Include="..\Ensek.MeterReadings.Domain\Ensek.MeterReadings.Domain.csproj" />
 		<ProjectReference Include="..\Ensek.MeterReadings.Data\Ensek.MeterReadings.Data.csproj" />

@@ -1,0 +1,32 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <LangVersion>latest</LangVersion>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.12.0" />
+    <PackageReference Include="MSTest" Version="3.6.4" />
+	  <PackageReference Include="MSTest.TestFramework" Version="3.6.4" />
+	  <PackageReference Include="MSTest.TestAdapter" Version="3.6.4" />
+	  <PackageReference Include="coverlet.collector" Version="6.0.2">
+		  <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		  <PrivateAssets>all</PrivateAssets>
+	  </PackageReference>
+	  <PackageReference Include="Moq" Version="4.20.70" />
+	  <PackageReference Include="System.Linq.Async" Version="6.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Using Include="Microsoft.VisualStudio.TestTools.UnitTesting" />
+  </ItemGroup>
+
+  <ItemGroup>
+	  <ProjectReference Include="..\Ensek.MeterReadings.Domain\Ensek.MeterReadings.Domain.csproj" />
+	  <ProjectReference Include="..\Ensek.MeterReadings.Services\Ensek.MeterReadings.Services.csproj" />
+  </ItemGroup>
+	
+</Project>
