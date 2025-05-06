@@ -1,32 +1,192 @@
 ﻿@model Ensek.MeterReadings.Domain.ViewModels.UploadViewModel
 @{
-    ViewData["Title"] = "Meter Reads Upload";
+    ViewData["Title"] = "ENSEK Meter Reads Upload Tool";
     var hasResult = Model?.UploadResult != null;
     var result = Model?.UploadResult; // Shorthand for easier access
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+@section Styles {
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <style>
+        /* Ensek-inspired color palette */
+        :root {
+            --mrut-primary-blue: #182d4e; /* Standard Bootstrap primary, adjust if specific Ensek blue is known */
+            --mrut-dark-blue: #eb6533;
+            --mrut-light-gray: #f8f9fa;
+            --mrut-medium-gray: #e9ecef;
+            --mrut-dark-gray: #6c757d;
+            --mrut-success-bg: #d1e7dd;
+            --mrut-success-text: #0f5132;
+            --mrut-danger-bg: #f8d7da;
+            --mrut-danger-text: #842029;
+            --mrut-warning-bg: #fff3cd;
+            --mrut-warning-text: #664d03;
+        }
+
+        body {
+            background-color: var(--mrut-light-gray); /* Light background for the page */
+        }
+
+        .page-header {
+            background-color: white; /* White background for header section */
+            padding: 2rem 1rem;
+            margin-bottom: 2rem;
+            border-bottom: 1px solid var(--mrut-medium-gray);
+        }
+
+            .page-header h1 {
+                color: var(--mrut-primary-blue);
+                font-weight: 600;
+            }
+
+        .upload-card, .results-card {
+            border: none; /* Remove default card border */
+            border-radius: 0.5rem; /* Slightly more rounded corners */
+            box-shadow: 0 0.25rem 0.75rem rgba(0, 0, 0, 0.07); /* Subtle shadow */
+            margin-bottom: 2rem;
+        }
+
+            .upload-card .card-body, .results-card .card-body {
+                padding: 2rem; /* More padding inside cards */
+            }
+
+            .upload-card .card-title {
+                color: var(--mrut-primary-blue);
+                font-weight: 500;
+                margin-bottom: 1.5rem;
+            }
+
+        .btn-primary {
+            background-color: var(--mrut-primary-blue);
+            border-color: var(--mrut-primary-blue);
+            padding: 0.6rem 1.2rem;
+            font-weight: 500;
+            transition: background-color 0.2s ease-in-out, border-color 0.2s ease-in-out;
+        }
+
+            .btn-primary:hover {
+                background-color: var(--mrut-dark-blue);
+                border-color: var(--mrut-dark-blue);
+            }
+
+        .form-control {
+            border-radius: 0.3rem;
+        }
+
+            .form-control:focus {
+                border-color: var(--mrut-primary-blue);
+                box-shadow: 0 0 0 0.25rem rgba(0, 123, 255, 0.25); /* Bootstrap primary focus */
+            }
+
+        .results-card .card-header {
+            background-color: var(--mrut-medium-gray);
+            border-bottom: 1px solid #dee2e6;
+            font-weight: 600;
+            color: var(--mrut-dark-gray);
+        }
+
+        .stat-box {
+            padding: 1.25rem;
+            border-radius: 0.375rem;
+            text-align: center;
+            margin-bottom: 1rem; /* Add space between boxes on small screens */
+        }
+
+            .stat-box .fs-3 {
+                font-weight: 700;
+            }
+
+            .stat-box .small {
+                text-transform: uppercase;
+                font-weight: 500;
+            }
+
+        .stat-success {
+            background-color: var(--mrut-success-bg);
+            color: var(--mrut-success-text);
+            border: 1px solid rgba(var(--bs-success-rgb),.2);
+        }
+
+        .stat-danger {
+            background-color: var(--mrut-danger-bg);
+            color: var(--mrut-danger-text);
+            border: 1px solid rgba(var(--bs-danger-rgb),.2);
+        }
+
+        .stat-warning {
+            background-color: var(--mrut-warning-bg);
+            color: var(--mrut-warning-text);
+            border: 1px solid rgba(var(--bs-warning-rgb),.2);
+        }
+
+
+        .error-details {
+            background-color: #fff; /* White background for error list */
+            border: 1px solid var(--mrut-medium-gray);
+            border-radius: 0.375rem;
+            padding: 1rem;
+            max-height: 350px; /* Slightly taller scroll area */
+            overflow-y: auto;
+            font-size: 0.9em;
+        }
+
+            .error-details ul li {
+                padding-bottom: 0.5rem;
+                margin-bottom: 0.5rem;
+                border-bottom: 1px dashed var(--mrut-medium-gray); /* Dashed separator */
+                word-break: break-word; /* Prevent long errors overflowing */
+            }
+
+                .error-details ul li:last-child {
+                    border-bottom: none;
+                    margin-bottom: 0;
+                    padding-bottom: 0;
+                }
+
+        /* Alert styling */
+        .alert {
+            border-radius: 0.375rem;
+        }
+
+        .alert-danger {
+            background-color: var(--mrut-danger-bg);
+            color: var(--mrut-danger-text);
+            border-color: rgba(var(--bs-danger-rgb),.3);
+        }
+
+        .alert-success {
+            background-color: var(--mrut-success-bg);
+            color: var(--mrut-success-text);
+            border-color: rgba(var(--bs-success-rgb),.3);
+        }
+
+        .alert-warning {
+            background-color: var(--mrut-warning-bg);
+            color: var(--mrut-warning-text);
+            border-color: rgba(var(--bs-warning-rgb),.3);
+        }
+
+    </style>
+}
+
+<div class="page-header text-center">
+    <h1 class="display-5">Meter Reading Upload</h1>
+    <p class="lead text-muted">Upload your CSV file containing customer meter readings for processing.</p>
+</div>
 
 <div class="container mt-4">
-    <div class="text-center mb-4">
-        <h1 class="display-4">Upload Meter Reads</h1>
-        <p class="lead">Select a CSV file containing meter readings to upload.</p>
-    </div>
-
     <div class="row justify-content-center">
-        <div class="col-md-10 col-lg-8">
+        <div class="col-lg-9 col-xl-8">
 
             @* Display General Errors & Validation Issues from TempData/ModelState *@
-            @* Use ViewData.ModelState.IsValid to check for errors added in the controller *@
             @if (!ViewData.ModelState.IsValid)
             {
                 <div class="alert alert-danger alert-dismissible fade show" role="alert">
                     <strong><i class="bi bi-exclamation-triangle-fill me-2"></i>Please fix the following issues:</strong>
-                    @* Use asp-validation-summary to display errors added via ModelState.AddModelError *@
                     <div asp-validation-summary="ModelOnly" class="mt-2"></div>
-                    @* Explicitly display errors added with an empty key if needed (like general processing errors) *@
                     @if (ViewData.ModelState[string.Empty] != null)
                     {
-                        <ul class="mb-0 mt-2">
+                        <ul class="mb-0 mt-2 ps-3">
                             @foreach (var error in ViewData.ModelState[string.Empty].Errors)
                             {
                                 <li>@error.ErrorMessage</li>
@@ -37,80 +197,76 @@
                 </div>
             }
 
-
-            <div class="card shadow-sm mb-4">
+            @* Upload Card *@
+            <div class="card upload-card">
                 <div class="card-body">
-                    <h5 class="card-title mb-3">Select File</h5>
-                    @* Form posts to the "Upload" action in "Home" controller using POST method and allows file uploads *@
+                    <h5 class="card-title"><i class="bi bi-file-earmark-arrow-up-fill me-2"></i>Select File</h5>
                     <form method="post" enctype="multipart/form-data" asp-controller="Home" asp-action="Upload">
-                        @* Include AntiForgeryToken for security against CSRF attacks *@
                         @Html.AntiForgeryToken()
-
-                        <div class="input-group mb-3">
-                            @* File input: name="meterReadingFile" must match the parameter name in the POST action method *@
-                            <input type="file" name="meterReadingFile" id="meterReadingFile" class="form-control" accept=".csv" required />
-                            <button type="submit" class="btn btn-primary">
-                                <i class="bi bi-cloud-upload-fill me-2"></i> Upload File
+                        <div class="mb-3">
+                            <label for="meterReadingFile" class="form-label visually-hidden">CSV File:</label>
+                            <input type="file" name="meterReadingFile" id="meterReadingFile" class="form-control form-control-lg" accept=".csv" required />
+                            @* Placeholder for client-side validation message *@
+                            <span class="text-danger small" data-valmsg-for="meterReadingFile" data-valmsg-replace="true"></span>
+                        </div>
+                        <div class="d-grid">
+                            @* Make button full width *@
+                            <button type="submit" class="btn btn-primary btn-lg">
+                                <i class="bi bi-cloud-upload-fill me-2"></i> Upload and Process File
                             </button>
                         </div>
-                        @* Placeholder for client-side validation message specifically for the file input (if using jQuery Validate) *@
-                        @* <span class="text-danger" data-valmsg-for="meterReadingFile" data-valmsg-replace="true"></span> *@
                     </form>
                 </div>
             </div>
 
-            @* Display Upload Results Section - Only shown if 'result' is not null *@
+            @* Results Card - Display only if results are available *@
             @if (hasResult && result != null)
             {
-                <div class="card shadow-sm">
-                    <div class="card-header bg-light">
-                        <i class="bi bi-file-earmark-check-fill me-1"></i> Upload Results (@(result.FileName ?? "Last Upload"))
+                <div class="card results-card">
+                    <div class="card-header">
+                        <i class="bi bi-clipboard2-data-fill me-2"></i> Upload Results (@(result.FileName ?? "Last Upload"))
                     </div>
                     <div class="card-body">
-                        @* Row displaying Success/Failure counts *@
-                        <div class="row mb-3 text-center">
-                            <div class="col">
-                                <div class="stat-box p-3 border rounded bg-success-subtle text-success-emphasis">
-                                    <div class="fs-4 fw-bold">@result.SuccessfulReadings</div>
-                                    <div class="small text-uppercase"><i class="bi bi-check-circle-fill me-1"></i>Successful</div>
+                        <div class="row g-3 mb-4">
+                            @* Added gutter spacing (g-3) *@
+                            <div class="col-md-6">
+                                <div class="stat-box stat-success">
+                                    <div class="fs-3">@result.SuccessfulReadings</div>
+                                    <div class="small"><i class="bi bi-check-circle-fill me-1"></i>Successful</div>
                                 </div>
                             </div>
-                            <div class="col">
-                                <div class="stat-box p-3 border rounded bg-danger-subtle text-danger-emphasis">
-                                    <div class="fs-4 fw-bold">@result.FailedReadings</div>
-                                    <div class="small text-uppercase"><i class="bi bi-x-octagon-fill me-1"></i>Failed</div>
+                            <div class="col-md-6">
+                                <div class="stat-box stat-danger">
+                                    <div class="fs-3">@result.FailedReadings</div>
+                                    <div class="small"><i class="bi bi-x-octagon-fill me-1"></i>Failed</div>
                                 </div>
                             </div>
                         </div>
 
-                        @* Display Failure Details only if there are errors *@
                         @if (result.Errors.Any())
                         {
-                            <h6 class="mt-4 mb-2"><i class="bi bi-exclamation-triangle-fill me-1 text-danger"></i> Failure Details:</h6>
-                            @* Scrollable container for potentially long error lists *@
-                            <div class="error-details p-3 border rounded bg-light" style="max-height: 300px; overflow-y: auto; font-size: 0.9em;">
+                            <h6 class="mt-4 mb-3 text-danger-emphasis"><i class="bi bi-list-ul me-1"></i> Failure Details:</h6>
+                            <div class="error-details">
                                 <ul class="list-unstyled mb-0">
                                     @foreach (var error in result.Errors)
                                     {
-                                        <li class="mb-1 pb-1 border-bottom border-dashed">
-                                            @error @* Display each error message *@
-                                        </li>
+                                        <li><i class="bi bi-caret-right-fill me-1 text-danger opacity-75"></i>@error</li>
                                     }
                                 </ul>
                             </div>
                         }
-                        @* Display success message if all processed were successful *@
                         else if (result.FailedReadings == 0 && result.SuccessfulReadings > 0)
                         {
-                            <div class="alert alert-success mt-3" role="alert">
-                                <i class="bi bi-check-all me-1"></i> All readings processed successfully!
+                            <div class="alert alert-success mt-3 d-flex align-items-center" role="alert">
+                                <i class="bi bi-check-circle-fill me-2"></i>
+                                <div>All readings processed successfully!</div>
                             </div>
                         }
-                        @* Display warning if file was processed but contained no valid data to add *@
                         else if (result.FailedReadings == 0 && result.SuccessfulReadings == 0 && result.Errors.Count == 0)
                         {
-                            <div class="alert alert-warning mt-3" role="alert">
-                                <i class="bi bi-info-circle-fill me-1"></i> The file was processed, but contained no new valid readings to add (e.g., all duplicates or empty file).
+                            <div class="alert alert-warning mt-3 d-flex align-items-center" role="alert">
+                                <i class="bi bi-info-circle-fill me-2"></i>
+                                <div>The file was processed, but contained no new valid readings to add.</div>
                             </div>
                         }
                     </div>
@@ -121,33 +277,9 @@
     </div>
 </div>
 
-<script src="/_framework/aspnetcore-browser-refresh.js"></script>
-@* Section for adding page-specific CSS *@
-@section Styles {
-    <link rel="stylesheet" href="[https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css](https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css)">
-    <style>
-        .stat-box { /* Basic styling for result boxes */
-            transition: transform 0.2s ease-in-out;
-        }
-
-            .stat-box:hover {
-                transform: translateY(-2px); /* Slight lift on hover */
-            }
-
-        .error-details {
-            background-color: #f8f9fa;
-        }
-        /* Light background for error list */
-        .border-dashed {
-            border-bottom-style: dashed !important;
-        }
-        /* Dashed separator for errors */
-    </style>
-    }
-
-@* Section for adding page-specific scripts (includes validation scripts) *@
+@* Validation scripts remain the same *@
 @section Scripts {
     @{
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
     }
-    }
+}
