@@ -24,7 +24,7 @@ The solution follows a clean architecture pattern with distinct projects for dif
 
 ## Features
 
-* **CSV Upload (MVC):** User-friendly web interface (`/`) to upload the `Meter_Reading.csv` file.
+* **CSV Upload (MVC):** User-friendly web interface to upload the `Meter_Reading.csv` file.
 * **CSV Upload (API):** RESTful endpoint `POST /api/meter-reading-uploads` accepting multipart/form-data for programmatic uploads.
 * **Data Validation:** Each meter reading is validated against the following criteria:
     * **Account Exists:** The `AccountId` must correspond to an existing account in the database (seeded from `Test_Accounts.csv`).
